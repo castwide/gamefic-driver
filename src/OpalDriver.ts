@@ -1,18 +1,17 @@
 import {Driver} from './Driver';
 
-// This engine assumes that Opal has already been compiled with a Gamefic
-// project. Gamefic 2.0 creates a global $engine variable.
-declare const Opal: any;
-
 export class OpalDriver implements Driver {
-	constructor() {
+	private opal: any;
+
+	constructor(opal: any) {
+		this.opal = opal;
 	}
 
 	start(): Promise<any> {
 		return new Promise((resolve, reject) => {
 			try {
-				Opal.gvars.engine.$run();
-				var state = Opal.gvars.engine.$user().$character().$state();
+				this.opal.gvars.engine.$run();
+				var state = this.opal.gvars.engine.$user().$character().$state();
 				var json = state.$to_json();
 				resolve(JSON.parse(json));
 			} catch(e) {
@@ -24,8 +23,8 @@ export class OpalDriver implements Driver {
 	receive(input: string): Promise<any> {
 		return new Promise((resolve, reject) => {
 			try {
-				Opal.gvars.engine.$receive(input);
-				var state = Opal.gvars.engine.$user().$character().$state();
+				this.opal.gvars.engine.$receive(input);
+				var state = this.opal.gvars.engine.$user().$character().$state();
 				var json = state.$to_json();
 				resolve(JSON.parse(json));
 			} catch(e) {
@@ -37,8 +36,8 @@ export class OpalDriver implements Driver {
 	update(): Promise<any> {
 		return new Promise((resolve, reject) => {
 			try {
-				Opal.gvars.engine.$update();
-				var state = Opal.gvars.engine.$user().$character().$state();
+				this.opal.gvars.engine.$update();
+				var state = this.opal.gvars.engine.$user().$character().$state();
 				var json = state.$to_json();
 				resolve(JSON.parse(json));
 			} catch(e) {
