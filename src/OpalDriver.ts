@@ -24,9 +24,11 @@ export class OpalDriver implements Driver {
 		return new Promise((resolve, reject) => {
 			try {
 				this.opal.gvars.engine.$receive(input);
-				var state = this.opal.gvars.engine.$user().$character().$state();
-				var json = state.$to_json();
-				resolve(JSON.parse(json));
+				this.update().then((response) => {
+					resolve(response);
+				}).catch((e) => {
+					reject(e);
+				});
 			} catch(e) {
 				reject(e);
 			}
