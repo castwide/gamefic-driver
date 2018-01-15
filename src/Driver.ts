@@ -1,11 +1,11 @@
-export class Driver {
+export abstract class Driver {
 	private updateCallbacks: Function[] = [];
 
-	start() {}
+	abstract start();
 
-	receive(input: string) {}
+	abstract receive(input: string);
 
-	update() {}
+	abstract update();
 
 	onUpdate(callback: Function) {
 		this.updateCallbacks.push(callback);
