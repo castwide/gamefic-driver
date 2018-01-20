@@ -34,7 +34,7 @@ export class OpalDriver extends Driver {
 			var state = this.opal.gvars.engine.$user().$character().$state();
 			var json = state.$to_json();
 			var response = JSON.parse(json);
-			this.notify(JSON.parse(response));
+			this.notify(response);
 			if (response.continued) {
 				this.update();
 			}
