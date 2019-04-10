@@ -9,37 +9,22 @@ export class OpalDriver extends Driver {
 	}
 
 	start() {
-		try {
-			this.opal.gvars.engine.$run();
-			var state = this.opal.gvars.engine.$user().$character().$state();
-			var json = state.$to_json();
-			this.notify(JSON.parse(json));
-		} catch(e) {
-			console.error(e);
-		}
+		var state = this.opal.gvars.character.$state();
+		var json = state.$to_json();
+		this.notify(JSON.parse(json));
 	}
 
 	receive(input: string) {
-		try {
-			this.opal.gvars.engine.$receive(input);
-			this.update();
-		} catch(e) {
-			console.error(e);
-		}
+		this.opal.gvars.character.$queue().$push(input);
+		this.update();
 	}
 
 	update() {
-		try {
-			this.opal.gvars.engine.$update();
-			var state = this.opal.gvars.engine.$user().$character().$state();
-			var json = state.$to_json();
-			var response = JSON.parse(json);
-			this.notify(response);
-			if (response.continued) {
-				this.update();
-			}
-		} catch(e) {
-			console.error(e);
-		}
+		this.opal.gvars.plot.$update();
+		this.opal.gvars.plot.$ready();
+		var state = this.opal.gvars.character.$state();
+		var json = state.$to_json();
+		var response = JSON.parse(json);
+		this.notify(response);
 	}
 }
