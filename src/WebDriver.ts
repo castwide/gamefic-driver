@@ -1,4 +1,4 @@
-import {Driver} from './Driver';
+import { Driver } from './Driver';
 import * as axios from 'axios';
 var qs = require('qs');
 

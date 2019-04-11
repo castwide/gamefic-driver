@@ -1,25 +1,31 @@
-import {Driver} from './Driver';
+import { Driver } from './Driver';
 
 export class OpalDriver extends Driver {
-	private engine: any;
+	private opal: any;
 
-	constructor(engine: any) {
+	constructor(opal: any) {
 		super();
-		this.engine = engine;
+		this.opal = opal;
 	}
 
 	start() {
-		var state = this.engine.start();
-		this.notify(state);
+		this.opal.gvars.plot.$update();
+		this.opal.gvars.plot.$ready();
+		var state = this.opal.gvars.character.$state();
+		var result = JSON.parse(state.$to_json());
+		this.notify(result);
 	}
 
 	receive(input: string) {
-		this.engine.receive(input);
+		this.opal.gvars.character.$queue().$push(input);
 		this.update();
 	}
 
 	update() {
-		var state = this.engine.update();
-		this.notify(state);
+		this.opal.gvars.plot.$update();
+		this.opal.gvars.plot.$ready();
+		var state = this.opal.gvars.character.$state();
+		var result = JSON.parse(state.$to_json());
+		this.notify(result);
 	}
 }
