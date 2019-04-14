@@ -9,7 +9,6 @@ export class OpalDriver extends Driver {
 	}
 
 	start() {
-		this.opal.gvars.plot.$update();
 		this.opal.gvars.plot.$ready();
 		var state = this.opal.gvars.character.$state();
 		var result = JSON.parse(state.$to_json());
