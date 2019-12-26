@@ -7,6 +7,10 @@ export abstract class Driver {
 
 	abstract update();
 
+	abstract snapshot(): Promise<any>;
+
+	abstract restore(data: any);
+
 	onUpdate(callback: Function) {
 		this.updateCallbacks.push(callback);
 	}

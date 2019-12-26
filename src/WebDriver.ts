@@ -22,7 +22,7 @@ export class WebDriver extends Driver {
 	}
 
 	receive(input: string) {
-		axios.default.post(this.url + '/receive', qs.stringify({command: input})).then((response) => {
+		axios.default.post(this.url + '/receive', qs.stringify({ command: input })).then((response) => {
 			this.update();
 		}).catch((error) => {
 			console.error(error);
@@ -37,6 +37,20 @@ export class WebDriver extends Driver {
 			}
 		}).catch((error) => {
 			console.error(error);
+		});
+	}
+
+	snapshot() {
+		return new Promise((resolve) => {
+			axios.default.get(this.url + '/snapshot').then((response) => {
+				resolve(response.data);
+			});	
+		});
+	}
+
+	restore(data: any) {
+		axios.default.post(this.url + '/restore', qs.stringify({ snapshot: data })).then((response) => {
+			this.notify(response.data);
 		});
 	}
 }
