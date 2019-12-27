@@ -1,7 +1,7 @@
 export abstract class Driver {
 	private updateCallbacks: Function[] = [];
 
-	abstract start();
+	abstract start(): Promise<any>;
 
 	abstract receive(input: string);
 

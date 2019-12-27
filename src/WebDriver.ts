@@ -10,14 +10,16 @@ export class WebDriver extends Driver {
 	}
 
 	start() {
-		axios.default.get(this.url).then((response) => {
-			axios.default.post(this.url + '/start').then((response) => {
-				this.notify(response.data);
+		return new Promise((resolve, reject) => {
+			axios.default.get(this.url).then((response) => {
+				axios.default.post(this.url + '/start').then((response) => {
+					resolve(response.data);
+				}).catch((error) => {
+					reject(error);
+				});
 			}).catch((error) => {
-				console.error(error);
-			});
-		}).catch((error) => {
-			console.error(error);
+				reject(error);
+			});	
 		});
 	}
 
@@ -49,7 +51,7 @@ export class WebDriver extends Driver {
 	}
 
 	restore(data: any) {
-		axios.default.post(this.url + '/restore', qs.stringify({ snapshot: data })).then((response) => {
+		axios.default.post(this.url + '/restore', qs.stringify({ snapshot: JSON.stringify(data) })).then((response) => {
 			this.notify(response.data);
 		});
 	}

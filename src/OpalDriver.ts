@@ -9,10 +9,12 @@ export class OpalDriver extends Driver {
 	}
 
 	start() {
-		this.opal.gvars.plot.$ready();
-		var state = this.opal.gvars.character.$state().$to_json();
-		var result = JSON.parse(state);
-		this.notify(result);
+		return new Promise((resolve) => {
+			this.opal.gvars.plot.$ready();
+			var state = this.opal.gvars.character.$state().$to_json();
+			var result = JSON.parse(state);
+			resolve(result);	
+		});
 	}
 
 	receive(input: string) {
