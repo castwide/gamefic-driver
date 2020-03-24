@@ -4,7 +4,9 @@ A Node library for connecting to Gamefic engines.
 
 ## Installation
 
-    $ npm install gamefic-driver --save
+```
+$ npm install gamefic-driver --save
+```
 
 ## Usage
 

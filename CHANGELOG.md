@@ -1,4 +1,4 @@
-## 0.2.0
+## 0.2.0 - March 24, 2020
 - Driver snapshot() and restore() functions
 
 ## 0.1.0 - April 28, 2019
