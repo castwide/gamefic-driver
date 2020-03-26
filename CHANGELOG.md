@@ -1,3 +1,6 @@
+## 0.2.1 - March 26, 2020
+- Command queue handling
+
 ## 0.2.0 - March 24, 2020
 - Driver snapshot() and restore() functions
 

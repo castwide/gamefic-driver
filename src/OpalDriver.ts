@@ -11,7 +11,7 @@ export class OpalDriver extends Driver {
 	start() {
 		return new Promise((resolve) => {
 			this.opal.gvars.plot.$ready();
-			var state = this.opal.gvars.character.$state().$to_json();
+			var state = this.opal.gvars.character.$output().$to_json();
 			var result = JSON.parse(state);
 			resolve(result);	
 		});
@@ -25,9 +25,12 @@ export class OpalDriver extends Driver {
 	update() {
 		this.opal.gvars.plot.$update();
 		this.opal.gvars.plot.$ready();
-		var state = this.opal.gvars.character.$state().$to_json();
+		var state = this.opal.gvars.character.$output().$to_json();
 		var result = JSON.parse(state);
 		this.notify(result);
+		if (result.queue.length > 0) {
+			setTimeout(this.update.bind(this), 1);
+		}
 	}
 
 	snapshot() {
@@ -39,7 +42,8 @@ export class OpalDriver extends Driver {
 
 	restore(data: any) {
 		this.opal.gvars.plot.$restore(data);
-		var state = this.opal.gvars.character.$state().$to_json();
+		this.opal.gvars.plot.$ready();
+		var state = this.opal.gvars.character.$output().$to_json();
 		var result = JSON.parse(state);
 		this.notify(result);
 	}
