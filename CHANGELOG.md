@@ -1,3 +1,6 @@
+## 0.2.2
+- Package updates
+
 ## 0.2.1 - March 26, 2020
 - Command queue handling
 
