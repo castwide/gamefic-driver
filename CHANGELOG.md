@@ -1,4 +1,4 @@
-## 0.2.2
+## 0.2.2 - September 10, 2021
 - Package updates
 
 ## 0.2.1 - March 26, 2020
