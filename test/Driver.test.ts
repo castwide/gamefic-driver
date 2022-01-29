@@ -6,6 +6,14 @@ class TestDriver extends Driver {
             updated: true
         });
     }
+
+    start() { return null; }
+
+    receive(_input) { }
+
+    snapshot() { return null; }
+
+    restore(_data) { }
 }
 
 describe('Driver', () => {

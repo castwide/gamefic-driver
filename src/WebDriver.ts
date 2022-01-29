@@ -11,7 +11,7 @@ export class WebDriver extends Driver {
 
 	start() {
 		return new Promise((resolve, reject) => {
-			axios.default.get(this.url).then((response) => {
+			axios.default.get(this.url).then((_response) => {
 				axios.default.post(this.url + '/start').then((response) => {
 					resolve(response.data);
 				}).catch((error) => {
