@@ -2,6 +2,7 @@ import axios from 'axios';
 import { WebDriver } from '../src/WebDriver';
 
 jest.mock("axios");
+const mockedAxios = axios as any;
 
 describe('WebDriver', () => {
     it('starts a plot', async () => {
@@ -11,8 +12,8 @@ describe('WebDriver', () => {
                 messages: '<p>the messages</p>'
             }
         };
-        axios.get.mockResolvedValueOnce(expected);
-        axios.post.mockResolvedValueOnce(expected);
+        mockedAxios.get.mockResolvedValueOnce(expected);
+        mockedAxios.post.mockResolvedValueOnce(expected);
         let result = await driver.start();
         expect(result).toEqual(expected.data);
     });
