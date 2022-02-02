@@ -43,7 +43,6 @@ export class WebDriver extends Driver {
                 }
                 resolve(response.data);
             }).catch((error) => {
-                console.error(error);
                 reject(error);
             });
         });
