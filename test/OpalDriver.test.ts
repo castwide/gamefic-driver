@@ -26,7 +26,7 @@ let opalMock = {
             },
             $queue: () => {
                 return {
-                    $push: (input) => { }
+                    $push: (_input) => { }
                 }
             }
         }

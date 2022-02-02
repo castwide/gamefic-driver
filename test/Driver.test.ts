@@ -5,15 +5,16 @@ class TestDriver extends Driver {
         this.notify({
             updated: true
         });
+        return null;
     }
 
     start() { return null; }
 
-    receive(_input) { }
+    receive(_input) { return null; }
 
     snapshot() { return null; }
 
-    restore(_data) { }
+    restore(_data) { return null; }
 }
 
 describe('Driver', () => {

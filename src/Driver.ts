@@ -3,13 +3,13 @@ export abstract class Driver {
 
 	abstract start(): Promise<any>;
 
-	abstract receive(input: string);
+	abstract receive(input: string): Promise<any>;
 
-	abstract update();
+	abstract update(): Promise<any>;
 
 	abstract snapshot(): Promise<any>;
 
-	abstract restore(data: any);
+	abstract restore(data: any): Promise<any>;
 
 	onUpdate(callback: Function) {
 		this.updateCallbacks.push(callback);

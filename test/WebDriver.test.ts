@@ -17,4 +17,19 @@ describe('WebDriver', () => {
         let result = await driver.start();
         expect(result).toEqual(expected.data);
     });
+
+    it('receives input and updates', async () => {
+        let driver = new WebDriver();
+        let updated = false;
+        driver.onUpdate(_state => {
+            updated = true;
+        });
+        mockedAxios.post.mockResolvedValue({
+            data: {
+                queue: []
+            }
+        });
+        await driver.receive('command');
+        expect(updated).toBe(true);
+    });
 });

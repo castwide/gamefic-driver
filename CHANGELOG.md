@@ -1,3 +1,6 @@
+## 0.3.0
+- Public Driver functions return Promises
+
 ## 0.2.2 - September 10, 2021
 - Package updates
 
