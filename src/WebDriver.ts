@@ -1,6 +1,5 @@
 import { Driver } from './Driver';
 import * as axios from 'axios';
-import { resolve } from 'url';
 var qs = require('qs');
 
 export class WebDriver extends Driver {
