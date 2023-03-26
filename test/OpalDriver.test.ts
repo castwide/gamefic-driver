@@ -52,5 +52,5 @@ describe('OpalDriver', () => {
             driver.receive('command');
             expect(updated).toBe(true);
         });
-    })
+    });
 });

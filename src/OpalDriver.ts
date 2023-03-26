@@ -22,19 +22,18 @@ export class OpalDriver extends Driver {
 		return this.update();
 	}
 
-    update() {
+	update() {
 		this.opal.gvars.plot.$update();
 		this.opal.gvars.plot.$ready();
 		var state = this.opal.gvars.character.$output().$to_json();
 		var result = JSON.parse(state);
 		this.notify(result);
 		if (result.queue.length > 0) {
-			// setTimeout(this.update.bind(this), 1);
-            return this.update();
-        }
-        return new Promise((resolve) => {
-            resolve(result);
-        });
+			return this.update();
+		}
+		return new Promise((resolve) => {
+			resolve(result);
+		});
 	}
 
 	snapshot() {
@@ -49,9 +48,9 @@ export class OpalDriver extends Driver {
 		this.opal.gvars.plot.$ready();
 		var state = this.opal.gvars.character.$output().$to_json();
 		var result = JSON.parse(state);
-        this.notify(result);
-        return new Promise((resolve) => {
-            resolve(result);
-        });
+		this.notify(result);
+		return new Promise((resolve) => {
+			resolve(result);
+		});
 	}
 }
