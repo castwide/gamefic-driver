@@ -37,14 +37,15 @@ export class OpalDriver extends Driver {
 	}
 
 	snapshot() {
-		var snapshot = this.opal.gvars.plot.$save().$to_json();
+		var snapshot = this.opal.gvars.plot.$save();
 		return new Promise((resolve) => {
-			resolve(JSON.parse(snapshot));
+			resolve(snapshot);
 		});
 	}
 
-	restore(data: any) {
-		this.opal.gvars.plot.$restore(data);
+	restore(snapshot: any) {
+		this.opal.gvars.plot = this.opal.Object.$const_get('Gamefic::Plot').$restore(snapshot);
+		this.opal.gvars.character = this.opal.gvars.plot.$players().$first();
 		this.opal.gvars.plot.$ready();
 		var state = this.opal.gvars.character.$output().$to_json();
 		var result = JSON.parse(state);

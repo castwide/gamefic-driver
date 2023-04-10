@@ -57,7 +57,7 @@ export class WebDriver extends Driver {
 
     restore(data: any) {
         return new Promise((resolve) => {
-            axios.default.post(this.url + '/restore', qs.stringify({ snapshot: JSON.stringify(data) })).then((response) => {
+            axios.default.post(this.url + '/restore', qs.stringify({ snapshot: data })).then((response) => {
                 this.notify(response.data);
                 resolve(response.data);
             });
