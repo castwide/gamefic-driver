@@ -1,5 +1,7 @@
-## 0.3.0
+## 0.3.0 - Aprtil 10, 2023
 - Public Driver functions return Promises
+- OpalDriver maintains its own plot and player instances
+- Use v3 snapshots
 
 ## 0.2.2 - September 10, 2021
 - Package updates
