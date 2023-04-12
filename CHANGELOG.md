@@ -1,3 +1,7 @@
+## 0.4.0 - Aprtil 12, 2023
+- Receiving input does not automatically update the plot
+- Clients should use onUpdate callbacks for all output
+
 ## 0.3.0 - April 10, 2023
 - Public Driver functions return Promises
 - OpalDriver maintains its own plot and player instances

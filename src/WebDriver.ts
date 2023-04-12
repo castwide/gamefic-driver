@@ -37,9 +37,6 @@ export class WebDriver extends Driver {
         return new Promise((resolve, reject) => {
             axios.default.post(this.url + '/update').then((response) => {
                 this.notify(response.data);
-                if (response.data.queue.length > 0) {
-                    return this.update();
-                }
                 resolve(response.data);
             }).catch((error) => {
                 reject(error);

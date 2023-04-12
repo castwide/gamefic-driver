@@ -16,13 +16,14 @@ export class OpalDriver extends Driver {
 			this.opal.gvars.plot.$ready();
 			var state = this.opal.gvars.player.$output().$to_json();
 			var result = JSON.parse(state);
+			this.notify(result);
 			resolve(result);	
 		});
 	}
 
 	receive(input: string) {
 		this.opal.gvars.player.$queue().$push(input);
-		return this.update();
+		return new Promise((resolve) => resolve(true));
 	}
 
 	update() {
@@ -31,9 +32,6 @@ export class OpalDriver extends Driver {
 		var state = this.opal.gvars.player.$output().$to_json();
 		var result = JSON.parse(state);
 		this.notify(result);
-		if (result.queue.length > 0) {
-			return this.update();
-		}
 		return new Promise((resolve) => {
 			resolve(result);
 		});
