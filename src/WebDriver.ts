@@ -4,42 +4,34 @@ var qs = require('qs');
 
 export class WebDriver extends Driver {
     constructor(
-        public url: string = '/'
+        private url: string = '/'
     ) {
         super();
     }
 
     start() {
-        return new Promise((resolve, reject) => {
-            axios.default.get(this.url).then((_response) => {
-                axios.default.post(this.url + '/start').then((response) => {
-                    resolve(response.data);
-                }).catch((error) => {
-                    reject(error);
-                });
-            }).catch((error) => {
-                reject(error);
+        console.log('freakin tryin');
+        return new Promise((resolve) => {
+            axios.default.post(this.url + '/start').then((response) => {
+                this.notify(response.data);
+                resolve(response.data);
             });
         });
     }
 
     receive(input: string) {
-        return new Promise((resolve, reject) => {
-            axios.default.post(this.url + '/receive', qs.stringify({ command: input })).then((_response) => {
-                resolve(this.update());
-            }).catch((error) => {
-                reject(error);
+        return new Promise((resolve) => {
+            axios.default.post(`${this.url}/receive`, qs.stringify({ command: input })).then((_response) => {
+                resolve(true);
             });
         });
     }
 
     update() {
-        return new Promise((resolve, reject) => {
-            axios.default.post(this.url + '/update').then((response) => {
+        return new Promise((resolve) => {
+            axios.default.post(`${this.url}/update`).then((response) => {
                 this.notify(response.data);
                 resolve(response.data);
-            }).catch((error) => {
-                reject(error);
             });
         });
     }
