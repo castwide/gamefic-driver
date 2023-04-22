@@ -1,6 +1,7 @@
-## 0.5.0
+## 0.5.0 - April 22, 2023
+- Clarify responses and errors
 
-## 0.4.0 - Aprtil 12, 2023
+## 0.4.0 - April 12, 2023
 - Receiving input does not automatically update the plot
 - Clients should use onUpdate callbacks for all output
 
