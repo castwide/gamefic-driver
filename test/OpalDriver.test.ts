@@ -46,23 +46,25 @@ let opalMock = {
 }
 
 describe('OpalDriver', () => {
-    it('starts a plot', () => {
+    it('starts a plot', async () => {
         let driver = new OpalDriver(opalMock);
-        return driver.start().then(result => {
-            let parsed = JSON.parse(opalMock.gvars['player'].$output().$to_json());
-            expect(result).toEqual(parsed);
-        });
+        const result = await driver.start();
+        expect(result).toBe(true);
     });
 
-    it('receives input and updates', () => {
+    it('receives commands', async () => {
+        let driver = new OpalDriver(opalMock);
+        const result = await driver.receive('command');
+        expect(result).toBe(true);
+    });
+
+    it('notifies on updates', async () => {
         let driver = new OpalDriver(opalMock);
         let updated = false;
         driver.onUpdate(_state => {
             updated = true;
         });
-        return driver.start().then(result => {
-            driver.receive('command');
-            expect(updated).toBe(true);
-        });
+        await driver.update();
+        expect(updated).toBe(true);
     });
 });

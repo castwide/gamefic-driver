@@ -7,29 +7,26 @@ const mockedAxios = axios as any;
 describe('WebDriver', () => {
     it('starts a plot', async () => {
         let driver = new WebDriver();
-        let expected = {
-            data: {
-                messages: '<p>the messages</p>'
-            }
-        };
-        mockedAxios.get.mockResolvedValueOnce(expected);
-        mockedAxios.post.mockResolvedValueOnce(expected);
+        mockedAxios.post.mockResolvedValueOnce(true);
         let result = await driver.start();
-        expect(result).toEqual(expected.data);
+        expect(result).toBe(true);
     });
 
-    it('receives input and updates', async () => {
+    it('receives commands', async () => {
+        let driver = new WebDriver();
+        mockedAxios.post.mockResolvedValue(true);
+        let received = await driver.receive('command');
+        expect(received).toBe(true);
+    });
+
+    it('notifies on updates', async() => {
         let driver = new WebDriver();
         let updated = false;
         driver.onUpdate(_state => {
             updated = true;
         });
-        mockedAxios.post.mockResolvedValue({
-            data: {
-                queue: []
-            }
-        });
-        await driver.receive('command');
+        mockedAxios.post.mockResolvedValue(true);
+        await driver.update();
         expect(updated).toBe(true);
     });
 });
