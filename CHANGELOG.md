@@ -1,4 +1,4 @@
-## 1.0.0
+## 1.0.0 - January 27, 2024
 - Configurable plot class
 
 ## 0.5.0 - April 22, 2023
