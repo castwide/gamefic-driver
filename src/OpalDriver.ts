@@ -1,26 +1,22 @@
 import { Driver } from './Driver';
 
 export class OpalDriver extends Driver {
-	private opal: any;
-
-	constructor() {
+	// @ts-ignore
+	constructor(private opal: any = Opal, private klass: string = 'Gamefic::Plot') {
 		super();
-		// @ts-ignore
-		this.opal = Opal;
 	}
 
 	start() {
 		return new Promise((resolve, reject) => {
 			try {
-				this.opal.gvars.plot = this.opal.Object.$const_get('Gamefic::Plot').$new();
-				this.opal.gvars.player = this.opal.gvars.plot.$make_player_character();
-				this.opal.gvars.plot.$introduce(this.opal.gvars.player);
+				this.opal.gvars.plot = this.opal.Object.$const_get(this.klass).$new();
+				this.opal.gvars.player = this.opal.gvars.plot.$introduce();
 				this.opal.gvars.plot.$ready();
 				var state = this.opal.gvars.player.$output().$to_json();
 				var result = JSON.parse(state);
 				this.notify(result);
 				resolve(true);
-			} catch(e) {
+			} catch (e) {
 				reject(e);
 			}
 		});
@@ -46,7 +42,7 @@ export class OpalDriver extends Driver {
 				const result = JSON.parse(state);
 				this.notify(result);
 				resolve(result);
-			} catch(e) {
+			} catch (e) {
 				reject(e);
 			}
 		});
@@ -57,7 +53,7 @@ export class OpalDriver extends Driver {
 			try {
 				const snapshot = this.opal.gvars.plot.$save();
 				resolve(snapshot);
-			} catch(e) {
+			} catch (e) {
 				reject(e);
 			}
 		});
@@ -66,14 +62,13 @@ export class OpalDriver extends Driver {
 	restore(snapshot: any) {
 		return new Promise((resolve, reject) => {
 			try {
-				this.opal.gvars.plot = this.opal.Object.$const_get('Gamefic::Plot').$restore(snapshot);
+				this.opal.gvars.plot = this.opal.Object.$const_get(this.klass).$restore(snapshot);
 				this.opal.gvars.player = this.opal.gvars.plot.$players().$first();
-				this.opal.gvars.plot.$ready();
 				var state = this.opal.gvars.player.$output().$to_json();
 				var result = JSON.parse(state);
 				this.notify(result);
 				resolve(result);
-			} catch(e) {
+			} catch (e) {
 				reject(e);
 			}
 		});

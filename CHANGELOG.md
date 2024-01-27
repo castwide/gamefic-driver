@@ -1,3 +1,6 @@
+## 1.0.0
+- Configurable plot class
+
 ## 0.5.0 - April 22, 2023
 - Clarify responses and errors
 

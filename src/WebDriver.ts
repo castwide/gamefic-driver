@@ -1,6 +1,6 @@
 import { Driver } from './Driver';
 import * as axios from 'axios';
-var qs = require('qs');
+const qs = require('qs');
 
 export class WebDriver extends Driver {
     constructor(

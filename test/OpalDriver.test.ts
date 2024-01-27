@@ -1,22 +1,5 @@
 import { OpalDriver } from '../src/OpalDriver';
 
-let plot = {
-    $ready: () => { },
-    $update: () => { },
-    $save: () => {
-        return {
-            $to_json: () => {
-                return "{}";
-            }
-        };
-    },
-    $make_player_character: () => { return character },
-    $introduce: (_) => {},
-    $players: () => { return {
-        $first: () => { return character }
-    }}
-}
-
 let character = {
     $output: () => {
         return {
@@ -35,13 +18,33 @@ let character = {
     }
 }
 
+let plot = {
+    $ready: () => { },
+    $update: () => { },
+    $save: () => {
+        return {
+            $to_json: () => {
+                return "{}";
+            }
+        };
+    },
+    $introduce: (_) => { return character },
+    $players: () => {
+        return {
+            $first: () => { return character }
+        }
+    }
+}
+
 let opalMock = {
     gvars: {},
     Object: {
-        $const_get: (_) => { return {
-            $new: ()=> { return plot },
-            $restore: (_) => { return plot }
-        }}
+        $const_get: (_) => {
+            return {
+                $new: () => { return plot },
+                $restore: (_) => { return plot }
+            }
+        }
     }
 }
 
