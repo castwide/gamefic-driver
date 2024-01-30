@@ -1,3 +1,6 @@
+## 1.0.1 - January 30, 2024
+- Package updates
+
 ## 1.0.0 - January 27, 2024
 - Configurable plot class
 
