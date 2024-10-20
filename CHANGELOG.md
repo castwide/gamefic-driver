@@ -1,3 +1,6 @@
+## 2.0.0 - October 20, 2024
+- Update for Gamefic 4.0
+
 ## 1.0.1 - January 30, 2024
 - Package updates
 

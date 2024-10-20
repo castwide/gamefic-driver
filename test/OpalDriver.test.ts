@@ -19,8 +19,7 @@ let character = {
 }
 
 let plot = {
-    $ready: () => { },
-    $update: () => { },
+    $new: () => { return plot },
     $save: () => {
         return {
             $to_json: () => {
@@ -36,14 +35,19 @@ let plot = {
     }
 }
 
+let narrator = {
+    $new: () => { return narrator },
+    $start: () => { },
+    $finish: () => { }
+}
+
 let opalMock = {
     gvars: {},
     Object: {
-        $const_get: (_) => {
-            return {
-                $new: () => { return plot },
-                $restore: (_) => { return plot }
-            }
+        $const_get: (name) => {
+            if (name == 'Gamefic::Plot') return plot;
+            if (name == 'Gamefic::Narrator') return narrator;
+            throw(`Constant ${name} not defined in opalMock`);
         }
     }
 }

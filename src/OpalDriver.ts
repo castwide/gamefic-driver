@@ -1,18 +1,23 @@
 import { Driver } from './Driver';
 
 export class OpalDriver extends Driver {
+	private plot: any;
+	private narrator: any;
+	private player: any;
+
 	// @ts-ignore
 	constructor(private opal: any = Opal, private klass: string = 'Gamefic::Plot') {
 		super();
+		this.plot = this.opal.Object.$const_get(this.klass).$new();
+		this.narrator = this.opal.Object.$const_get('Gamefic::Narrator').$new(this.plot);
+		this.player = this.plot.$introduce();
 	}
 
 	start() {
 		return new Promise((resolve, reject) => {
 			try {
-				this.opal.gvars.plot = this.opal.Object.$const_get(this.klass).$new();
-				this.opal.gvars.player = this.opal.gvars.plot.$introduce();
-				this.opal.gvars.plot.$ready();
-				var state = this.opal.gvars.player.$output().$to_json();
+				this.narrator.$start();
+				var state = this.player.$output().$to_json();
 				var result = JSON.parse(state);
 				this.notify(result);
 				resolve(true);
@@ -25,7 +30,7 @@ export class OpalDriver extends Driver {
 	receive(input: string) {
 		return new Promise((resolve, reject) => {
 			try {
-				this.opal.gvars.player.$queue().$push(input);
+				this.player.$queue().$push(input);
 				resolve(true);
 			} catch (e) {
 				reject(e);
@@ -36,9 +41,9 @@ export class OpalDriver extends Driver {
 	update() {
 		return new Promise((resolve, reject) => {
 			try {
-				this.opal.gvars.plot.$update();
-				this.opal.gvars.plot.$ready();
-				const state = this.opal.gvars.player.$output().$to_json();
+				this.narrator.$finish();
+				this.narrator.$start();
+				const state = this.player.$output().$to_json();
 				const result = JSON.parse(state);
 				this.notify(result);
 				resolve(result);
@@ -51,7 +56,7 @@ export class OpalDriver extends Driver {
 	snapshot() {
 		return new Promise((resolve, reject) => {
 			try {
-				const snapshot = this.opal.gvars.plot.$save();
+				const snapshot = this.plot.$save();
 				resolve(snapshot);
 			} catch (e) {
 				reject(e);
@@ -62,9 +67,10 @@ export class OpalDriver extends Driver {
 	restore(snapshot: any) {
 		return new Promise((resolve, reject) => {
 			try {
-				this.opal.gvars.plot = this.opal.Object.$const_get(this.klass).$restore(snapshot);
-				this.opal.gvars.player = this.opal.gvars.plot.$players().$first();
-				var state = this.opal.gvars.player.$output().$to_json();
+				this.plot = this.opal.Object.$const_get(this.klass).$restore(snapshot);
+				this.player = this.plot.$players().$first();
+				this.narrator = this.opal.Object.$const_get('Gamefic::Narrator').$new(this.plot);
+				var state = this.player.$output().$to_json();
 				var result = JSON.parse(state);
 				this.notify(result);
 				resolve(result);
