@@ -61,12 +61,14 @@ describe('OpalDriver', () => {
 
     it('receives commands', async () => {
         let driver = new OpalDriver(opalMock);
+        await driver.start();
         const result = await driver.receive('command');
         expect(result).toBe(true);
     });
 
     it('notifies on updates', async () => {
         let driver = new OpalDriver(opalMock);
+        await driver.start();
         let updated = false;
         driver.onUpdate(_state => {
             updated = true;
