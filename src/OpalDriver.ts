@@ -8,19 +8,19 @@ export class OpalDriver extends Driver {
 	// @ts-ignore
 	constructor(private opal: any = Opal, private klass: string = 'Gamefic::Plot') {
 		super();
-		this.plot = this.opal.Object.$const_get(this.klass).$new();
-		if (this.opal.Object.$const_get('Gamefic::Narrator')) {
-			this.narrator = this.opal.Object.$const_get('Gamefic::Narrator').$new(this.plot);
-		} else {
-			console.warn("Gamefic::Narrator not found. Falling back to the Gamefic 3.0 API");
-		}
-		this.player = this.plot.$introduce();
 	}
 
 	start() {
 		return new Promise((resolve, reject) => {
+			this.plot = this.opal.Object.$const_get(this.klass).$new();
+			if (this.opal.Object.$const_get('Gamefic::Narrator')) {
+				this.narrator = this.opal.Object.$const_get('Gamefic::Narrator').$new(this.plot);
+			} else {
+				console.warn("Gamefic::Narrator not found. Falling back to the Gamefic 3.0 API");
+			}
+			this.player = this.plot.$introduce();	
 			try {
-				this.safeNarratorStart()
+				this.safeNarratorStart();
 				var state = this.player.$output().$to_json();
 				var result = JSON.parse(state);
 				this.notify(result);

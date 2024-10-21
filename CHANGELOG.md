@@ -1,3 +1,6 @@
+## 2.0.1 - October 21, 2024
+- Start new plots
+
 ## 2.0.0 - October 20, 2024
 - Update for Gamefic 4.0
 - Allow graceful fallback to Gamefic 3.0
