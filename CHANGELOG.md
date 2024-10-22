@@ -1,3 +1,7 @@
+## 2.0.3 - October 23, 2024
+- OpalDriver does not start or notify on restore
+- Package updates
+
 ## 2.0.2 - October 22, 2024
 - Start narrator on restore
 

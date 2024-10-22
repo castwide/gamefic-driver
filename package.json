@@ -1,6 +1,6 @@
 {
   "name": "gamefic-driver",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "A Node library for connecting to Gamefic engines",
   "main": "out/index.js",
   "typings": "out/index",
