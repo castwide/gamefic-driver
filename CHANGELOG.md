@@ -1,3 +1,6 @@
+## 2.0.2 - October 22, 2024
+- Start narrator on restore
+
 ## 2.0.1 - October 21, 2024
 - Start new plots
 

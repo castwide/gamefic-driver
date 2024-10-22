@@ -76,6 +76,7 @@ export class OpalDriver extends Driver {
 				if (this.opal.Object.$const_get('Gamefic::Narrator')) {
 					this.narrator = this.opal.Object.$const_get('Gamefic::Narrator').$new(this.plot);
 				}
+				this.safeNarratorStart();
 				var state = this.player.$output().$to_json();
 				var result = JSON.parse(state);
 				this.notify(result);
