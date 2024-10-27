@@ -78,6 +78,7 @@ export class OpalDriver extends Driver {
 				}
 				var state = this.player.$output().$to_json();
 				var result = JSON.parse(state);
+				this.notify(result);
 				resolve(result);
 			} catch (e) {
 				reject(e);

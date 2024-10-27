@@ -1,3 +1,6 @@
+## 2.0.4 - October 27, 2024
+- OpalDriver notifies without start on restore
+
 ## 2.0.3 - October 23, 2024
 - OpalDriver does not start or notify on restore
 - Package updates
